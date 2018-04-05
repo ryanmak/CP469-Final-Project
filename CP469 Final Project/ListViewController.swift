@@ -14,7 +14,7 @@ class ListViewController: UITableViewController {
     
     let INITIAL_POST_COUNT = 1
     let urlPath:String = "https://www.reddit.com/r/pics/.json"
-    var dataStore = NSData();
+    var rawData = NSData()
     
     // MARK: - TABLE FUNCTIONS
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,8 +58,8 @@ class ListViewController: UITableViewController {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: request, completionHandler:{ (data, response, error) in
-            self.dataStore = data! as NSData
-            let results = NSString(data: self.dataStore as Data, encoding: String.Encoding.utf8.rawValue)
+            self.rawData = NSData(data:data!)
+            let results = NSString(data: self.rawData as Data, encoding: String.Encoding.utf8.rawValue)
             print("the json file content is ")
             print(results!)
             print(response!)
@@ -77,7 +77,22 @@ class ListViewController: UITableViewController {
 
     // MARK: - JSON FUCNTIONS
     func parseJSON(){
+        var json:[String:Any]? = nil
+        
+        // parse json
+        do {
+            json = try JSONSerialization.jsonObject(with: self.rawData as Data, options:.allowFragments) as? [String:Any]
+        } catch {
+            
+        }
 
+        // Get the sub-json block "data". This block contains contains "children", which we need
+        let data = json!["data"] as! [String:Any]?
+        
+        // "children" contains the first 25 posts of the subreddit. This property was parsed as a NSArray
+        let postData = data!["children"] as! [[String:Any]]
+        
+        print(postData[0]["data"])
     }
 }
 
