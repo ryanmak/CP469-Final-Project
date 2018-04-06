@@ -12,9 +12,18 @@ class ListViewController: UITableViewController {
     // currently loaded posts will be stored here
     var posts:[Post] = []
     
-    let INITIAL_POST_COUNT = 1
-    let urlPath:String = "https://www.reddit.com/r/pics/.json"
+    // url and raw data are variables as they can change as more posts are loaded
+    var urlPath:String = "https://www.reddit.com/r/pics/.json"
     var rawData = NSData()
+    
+    // reddit keeps the number of posts displayed at 25 posts/page.
+    let NUM_OF_POSTS = 25
+    var pageNumber = 1
+    
+    // after is used to keep track of pages
+    // (i.e. a page will have an after "pointer" pointing to the next page)
+    var after = String()
+
 
     // MARK: - TABLE FUNCTIONS
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,6 +49,17 @@ class ListViewController: UITableViewController {
         cell.timestamp.text = post.getTimestamp()
         cell.postImage.image = post.getImage()
         
+        // if user has reached bottom, load more posts
+        if (indexPath.row == (NUM_OF_POSTS * pageNumber) - 1) {
+            print("load more posts!")
+            pageNumber = pageNumber + 1
+            
+            urlPath = "https://www.reddit.com/r/pics/.json?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
+            print(urlPath)
+            getJSON()
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+        
         return cell
     }
     
@@ -47,10 +67,20 @@ class ListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let temp = Post(title:"Ecks Dee", points:"42069", username:"bravoman", timestamp:"just now", image: #imageLiteral(resourceName: "tbh") )
-        posts.append(temp)
+//        let temp = Post(title:"Ecks Dee", points:"42069", username:"bravoman", timestamp:"just now", image: #imageLiteral(resourceName: "tbh") )
+//        posts.append(temp)
         
         // Download the json file
+        getJSON()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - JSON/HELPER FUCNTIONS
+    func getJSON(){
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let url: NSURL = NSURL(string: urlPath)!
@@ -60,22 +90,11 @@ class ListViewController: UITableViewController {
         let task = session.dataTask(with: request, completionHandler:{ (data, response, error) in
             self.rawData = NSData(data:data!)
             let results = NSString(data: self.rawData as Data, encoding: String.Encoding.utf8.rawValue)
-            print("the json file content is ")
-            print(results!)
-            print(response!)
-            print("done")
-            
             self.parseJSON()
         })
         task.resume()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - JSON/HELPER FUCNTIONS
+    
     func parseJSON(){
         var json:[String:Any]? = nil
         
@@ -89,6 +108,10 @@ class ListViewController: UITableViewController {
 
         // Get the sub-json block "data". This block contains contains "children", which we need
         let data = json!["data"] as! [String:Any]?
+        
+        // Get the after pointer
+        after = data!["after"] as! String
+        print(after)
         
         // "children" contains the first 25 posts of the subreddit. This property was parsed as
         // a NSArray, but since we need to access the contents, cast as [[String:Any]] instead
@@ -120,7 +143,13 @@ class ListViewController: UITableViewController {
                     image = UIImage(data: data!)!
                     let postObj = Post(title:title,points:points,username:username,timestamp:timestamp,image:image)
                     self.posts.append(postObj)
-                    self.tableView.reloadData()
+                    self.tableView.beginUpdates()
+                    
+                    let indexPath:IndexPath = IndexPath(row:(self.posts.count - 1), section:0)
+                    
+                    self.tableView.insertRows(at: [indexPath], with: .left)
+                    
+                    self.tableView.endUpdates()
                 }
             }
             
@@ -148,5 +177,7 @@ class ListViewController: UITableViewController {
         
         return String(describing: imageURL)
     }
+
+
 }
 
