@@ -15,7 +15,7 @@ class ListViewController: UITableViewController {
     let INITIAL_POST_COUNT = 1
     let urlPath:String = "https://www.reddit.com/r/pics/.json"
     var rawData = NSData()
-    
+
     // MARK: - TABLE FUNCTIONS
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -75,7 +75,7 @@ class ListViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - JSON FUCNTIONS
+    // MARK: - JSON/HELPER FUCNTIONS
     func parseJSON(){
         var json:[String:Any]? = nil
         
@@ -83,16 +83,70 @@ class ListViewController: UITableViewController {
         do {
             json = try JSONSerialization.jsonObject(with: self.rawData as Data, options:.allowFragments) as? [String:Any]
         } catch {
-            
+            print("Error Parsing JSON")
+            print(error)
         }
 
         // Get the sub-json block "data". This block contains contains "children", which we need
         let data = json!["data"] as! [String:Any]?
         
-        // "children" contains the first 25 posts of the subreddit. This property was parsed as a NSArray
+        // "children" contains the first 25 posts of the subreddit. This property was parsed as
+        // a NSArray, but since we need to access the contents, cast as [[String:Any]] instead
         let postData = data!["children"] as! [[String:Any]]
         
-        print(postData[0]["data"])
+        // convert individiaul posts to the Post object
+        for i in 0...postData.count-1 {
+            let p = postData[i]["data"] as! [String:Any]
+            let title = String(describing:p["title"]!)
+            let points = String(describing:p["score"]!)
+            let username = String(describing:p["author"]!)
+            
+            // reddit gives time as a unix timestamp; we need to convert this to
+            // a readable format, similar to the one reddit uses
+            var timestamp = String(describing: p["created_utc"]!)
+            timestamp = utsToRelativeTime(uts: timestamp)
+            
+            // reddit hides images in another series of nested json blocks. Call a
+            // function to retrieve the URLs of the images
+            let imageURL = getImageURL(post:p)
+            
+            // we need to download the image as a UIImage. Create an async task to download
+            // the image and load all contents to a Post Object
+            let url = URL(string: imageURL)
+            var image = UIImage()
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: url!)
+                DispatchQueue.main.async {
+                    image = UIImage(data: data!)!
+                    let postObj = Post(title:title,points:points,username:username,timestamp:timestamp,image:image)
+                    self.posts.append(postObj)
+                    self.tableView.reloadData()
+                }
+            }
+            
+            print(title)
+            print(points)
+            print(username)
+            print(imageURL)
+            print("")
+        }
+    }
+    // converts a unix timestamp into a relative time format (i.e. 1 hour ago, 5 days ago etc.)
+    func utsToRelativeTime(uts:String)->String {
+        let dateOfPost = NSDate(timeIntervalSince1970: Double(uts)!)
+        let currentDate = NSDate()
+        print(dateOfPost)
+        print(currentDate)
+        return ""
+    }
+    // returns the url of the image
+    func getImageURL(post:[String:Any])->String{
+        let preview = post["preview"] as! [String:Any]
+        let images = preview["images"] as! [[String:Any]]
+        let source = images[0]["source"] as! [String:Any]
+        let imageURL = source["url"]!
+        
+        return String(describing: imageURL)
     }
 }
 
