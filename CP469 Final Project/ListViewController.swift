@@ -35,6 +35,8 @@ class ListViewController: UITableViewController {
     // each segment has its own sort. request that sort and refresh the table when clicked
     @IBOutlet weak var subredditSorts: UISegmentedControl!
     @IBAction func indexChanged(sender : UISegmentedControl) {
+        // if user changed sort, delete all posts in array
+        posts.removeAll()
         // if user is not authenticaed, then use the regular url address
         if (!a.isAuthenticated) {
             switch sender.selectedSegmentIndex {
@@ -81,10 +83,13 @@ class ListViewController: UITableViewController {
                     break;
             }
         }
-        // delete all previous entries and get json based on requested sort
-        posts.removeAll()
-        getJSON()
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
+        // make sure that all previous entries are deleted by waiting;
+        // get json based on requested sort
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+            self.pageNumber = 1
+            self.getJSON()
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
+        }
     }
     
     // MARK: - TABLE FUNCTIONS
@@ -102,9 +107,10 @@ class ListViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of PostCellView.")
         }
         
-        // Fetches the appropriate meal for the data source layout.
+        // gets the appropriate post for the data source layout.
         let post = posts[indexPath.row]
         
+        // fill cell details
         cell.title.text = post.getTitle()
         cell.points.text = post.getPoints()
         cell.username.text = post.getUsername()
@@ -140,7 +146,14 @@ class ListViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //print("viewdidappear")
+        print("viewdidappear")
+        print(a.isAuthenticated)
+        print("url path " + urlPath)
+        
+        if (a.isAuthenticated) {
+            urlPath = OAUTH_REDDIT_SORTS[0]
+        }
+        
         posts.removeAll()
         getJSON()
     }
@@ -202,6 +215,28 @@ class ListViewController: UITableViewController {
             let points = String(describing:p["score"]!)
             let username = String(describing:p["author"]!)
             
+            // if user had previously upvoted a post in the past, have it show in the cell
+            var upvoted = false
+            var downvoted = false
+            let likes = p["likes"]
+            
+            // a post cannot simultaneously have an upvote and a downvote
+            if ((likes as? NSNull) == nil){
+                if (likes as! Int == 1){
+                    upvoted = true
+                }
+                else if (likes as! Int == 0){
+                    downvoted = true
+                }
+            }
+            
+            // if user had previously starred/saved a post in the past, have it show in the cell
+            let saved = p["saved"]
+            var starred = false
+            if (saved as! Int == 1) {
+                starred = true
+            }
+            
             // reddit gives time as a unix timestamp; we need to convert this to
             // a readable format, similar to the one reddit uses
             var timestamp = String(describing: p["created_utc"]!)
@@ -216,24 +251,15 @@ class ListViewController: UITableViewController {
             let url = URL(string: imageURL)
             var image = UIImage()
             
-            print(url)
-            
             let data = try? Data(contentsOf: url!)
             image = UIImage(data: data!)!
-            let postObj = Post(title:title,points:points,username:username,timestamp:timestamp,image:image)
+            let postObj = Post(title:title, points:points, username:username, timestamp:timestamp, image:image, up:upvoted, down:downvoted, saved:starred)
             self.posts.append(postObj)
-            
-            DispatchQueue.global().async {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+        }
+        DispatchQueue.global().async {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
-            
-//            print(title)
-//            print(points)
-//            print(username)
-//            print(imageURL)
-//            print("")
         }
     }
     // converts a unix timestamp into a relative time format (i.e. 1 hour ago, 5 days ago etc.)
@@ -260,7 +286,5 @@ class ListViewController: UITableViewController {
 
         return imageURL
     }
-
-
 }
 

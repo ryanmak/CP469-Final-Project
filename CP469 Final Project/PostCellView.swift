@@ -17,7 +17,6 @@ class PostCellView: UITableViewCell {
     
     @IBOutlet weak var upBtn: UIButton!
     @IBAction func upvote(_ sender: Any) {
-        print("push")
         if upBtn.backgroundColor == UIColor.white {
             upBtn.backgroundColor = UIColor.orange
         }

@@ -22,8 +22,6 @@ class Authentication {
     var isAuthenticated:Bool = false
     var token = ""
     
-    var rawData = NSData()
-    
     static let sharedInstance: Authentication = {
         let instance = Authentication()
         return instance
@@ -40,51 +38,5 @@ class Authentication {
         "&redirect_uri=" + redirect_uri +
         "&duration=" + duration +
         "&scope=" + scope
-    }
-    
-    // get token from reddit server
-    func getToken(){
-        print("get token")
-        let url = URL(string: "https://www.reddit.com/api/v1/access_token")!
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        // give a POST request to the server
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        // Authorization: Basic HTTP Auth header
-        let username = client_id
-        let password = ""
-        let loginString = String(format: "%@:%@", username, password)
-        let loginData = loginString.data(using: String.Encoding.utf8)!
-        let base64LoginString = loginData.base64EncodedString()
-        
-        // set the data above as the http header
-        request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
-        
-        // insert the given code from the webview
-        let postCode = "grant_type=authorization_code&code=" + responseCode + "&redirect_uri=" + redirect_uri
-        request.httpBody = postCode.data(using: .utf8)
-        
-        let task = session.dataTask(with: request) {( data, response, error) in
-            print("sup")
-            self.rawData = NSData(data:data!)
-            let results = NSString(data: self.rawData as Data, encoding: String.Encoding.utf8.rawValue)
-            print(results ?? "no")
-            self.isAuthenticated = true
-            
-            // parse json
-            var json:[String:Any]? = nil
-            do {
-                json = try JSONSerialization.jsonObject(with: self.rawData as Data, options:.allowFragments) as? [String:Any]
-            } catch {
-                print("Error Parsing JSON")
-                print(error)
-            }
-            self.token = json!["access_token"] as! String
-            print(self.token)
-        }
-        task.resume()
     }
 }
