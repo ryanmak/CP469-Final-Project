@@ -15,9 +15,45 @@ class PostCellView: UITableViewCell {
     @IBOutlet weak var timestamp: UILabel!
     @IBOutlet weak var postImage: UIImageView!
     
+    @IBOutlet weak var upBtn: UIButton!
+    @IBAction func upvote(_ sender: Any) {
+        print("push")
+        if upBtn.backgroundColor == UIColor.white {
+            upBtn.backgroundColor = UIColor.orange
+        }
+        else if upBtn.backgroundColor == UIColor.orange {
+            upBtn.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBOutlet weak var downBtn: UIButton!
+    @IBAction func downvote(_ sender: Any) {
+        if upBtn.backgroundColor == UIColor.white {
+            upBtn.backgroundColor = UIColor.purple
+        }
+        else if upBtn.backgroundColor == UIColor.purple {
+            upBtn.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBOutlet weak var starBtn: UIButton!
+    @IBAction func save(_ sender: Any) {
+        if upBtn.backgroundColor == UIColor.white {
+            upBtn.backgroundColor = UIColor.yellow
+        }
+        else if upBtn.backgroundColor == UIColor.yellow {
+            upBtn.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBOutlet weak var commentBtn: UIButton!
+    @IBAction func comment(_ sender: Any) {
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        print("loaded")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
