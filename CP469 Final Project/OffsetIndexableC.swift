@@ -29,12 +29,12 @@ extension DefaultIndices: OffsetIndexableCollection {
 
 #if swift(>=4.1)
 #else
-extension DefaultRandomAccessIndices: OffsetIndexableCollection {
-    
-}
-extension DefaultBidirectionalIndices: OffsetIndexableCollection {
-    
-}
+    extension DefaultRandomAccessIndices: OffsetIndexableCollection {
+        
+    }
+    extension DefaultBidirectionalIndices: OffsetIndexableCollection {
+        
+    }
 #endif
 
 // MARK: - Range +

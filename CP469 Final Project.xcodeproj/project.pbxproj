@@ -16,10 +16,10 @@
 		B11A01C8207433F300513EAA /* CP469_Final_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01C7207433F300513EAA /* CP469_Final_ProjectUITests.swift */; };
 		B11A01D620743C0200513EAA /* PostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01D520743C0200513EAA /* PostCellView.swift */; };
 		B11A01DB20744CF100513EAA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01DA20744CF100513EAA /* Post.swift */; };
+		B11AE190207939C300D96559 /* OffsetIndexableC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11AE18F207939C300D96559 /* OffsetIndexableC.swift */; };
+		B11AE19220793A1C00D96559 /* OffsetIndexableS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11AE19120793A1C00D96559 /* OffsetIndexableS.swift */; };
 		B1E8F0DE20780840000F6D56 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8F0DD20780840000F6D56 /* Authentication.swift */; };
 		B1E8F0E020780E5F000F6D56 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */; };
-		D67D87562078A73100D0779A /* OffsetIndexableS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67D87542078A73100D0779A /* OffsetIndexableS.swift */; };
-		D67D87572078A73100D0779A /* OffsetIndexableC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67D87552078A73100D0779A /* OffsetIndexableC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +55,10 @@
 		B11A01C9207433F300513EAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B11A01D520743C0200513EAA /* PostCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellView.swift; sourceTree = "<group>"; };
 		B11A01DA20744CF100513EAA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		B11AE18F207939C300D96559 /* OffsetIndexableC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetIndexableC.swift; sourceTree = "<group>"; };
+		B11AE19120793A1C00D96559 /* OffsetIndexableS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetIndexableS.swift; sourceTree = "<group>"; };
 		B1E8F0DD20780840000F6D56 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		D67D87542078A73100D0779A /* OffsetIndexableS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OffsetIndexableS.swift; path = "../../../Downloads/OffsetIndexableCollection-String-Int-Indexable--master/OffsetIndexableCollection/OffsetIndexableS.swift"; sourceTree = "<group>"; };
-		D67D87552078A73100D0779A /* OffsetIndexableC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OffsetIndexableC.swift; path = "../../../Downloads/OffsetIndexableCollection-String-Int-Indexable--master/OffsetIndexableCollection/OffsetIndexableC.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,12 +115,12 @@
 				B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */,
 				B11A01D520743C0200513EAA /* PostCellView.swift */,
 				B11A01DA20744CF100513EAA /* Post.swift */,
-				D67D87552078A73100D0779A /* OffsetIndexableC.swift */,
-				D67D87542078A73100D0779A /* OffsetIndexableS.swift */,
 				B11A01AB207433F300513EAA /* Main.storyboard */,
 				B11A01AE207433F300513EAA /* Assets.xcassets */,
 				B11A01B0207433F300513EAA /* LaunchScreen.storyboard */,
 				B11A01B3207433F300513EAA /* Info.plist */,
+				B11AE18F207939C300D96559 /* OffsetIndexableC.swift */,
+				B11AE19120793A1C00D96559 /* OffsetIndexableS.swift */,
 			);
 			path = "CP469 Final Project";
 			sourceTree = "<group>";
@@ -278,13 +278,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1E8F0E020780E5F000F6D56 /* LoginViewController.swift in Sources */,
+				B11AE190207939C300D96559 /* OffsetIndexableC.swift in Sources */,
 				B11A01AA207433F300513EAA /* ListViewController.swift in Sources */,
 				B11A01A8207433F300513EAA /* AppDelegate.swift in Sources */,
 				B11A01D620743C0200513EAA /* PostCellView.swift in Sources */,
-				D67D87562078A73100D0779A /* OffsetIndexableS.swift in Sources */,
 				B1E8F0DE20780840000F6D56 /* Authentication.swift in Sources */,
 				B11A01DB20744CF100513EAA /* Post.swift in Sources */,
-				D67D87572078A73100D0779A /* OffsetIndexableC.swift in Sources */,
+				B11AE19220793A1C00D96559 /* OffsetIndexableS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

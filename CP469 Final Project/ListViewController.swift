@@ -15,7 +15,7 @@ class ListViewController: UITableViewController {
     let REDDIT_SORTS:[String] = ["https://reddit.com/r/pics/hot/.json", "https://reddit.com/r/pics/top/.json", "https://reddit.com/r/pics/new/.json", "https://reddit.com/r/pics/rising/.json"]
     let OAUTH_REDDIT_SORTS:[String] = ["https://oauth.reddit.com/r/pics/hot/.json", "https://oauth.reddit.com/r/pics/top/.json", "https://oauth.reddit.com/r/pics/new/.json", "https://oauth.reddit.com/r/pics/rising/.json"]
     
-    let defaultImage = "https://imgur.com/gallery/GiW4t"
+    let defaultImage = "https://i.imgur.com/oXBH99p.png"
     
     // url and raw data are variables as they can change as more posts are loaded
     var urlPath:String = ""
@@ -216,8 +216,9 @@ class ListViewController: UITableViewController {
             let url = URL(string: imageURL)
             var image = UIImage()
             
-            let data = try? Data(contentsOf: url!)
+            print(url)
             
+            let data = try? Data(contentsOf: url!)
             image = UIImage(data: data!)!
             let postObj = Post(title:title,points:points,username:username,timestamp:timestamp,image:image)
             self.posts.append(postObj)
@@ -247,6 +248,8 @@ class ListViewController: UITableViewController {
     func getImageURL(post:[String:Any])->String{
         var imageURL = String()
         
+        // if user didn't correctly submit an image (i.e. a link to a unrecognized photo sharing site)
+        // use a default image instead
         if (post["preview"] == nil) {
             return defaultImage
         }
