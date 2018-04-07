@@ -12,8 +12,10 @@ class ListViewController: UITableViewController {
     // currently loaded posts will be stored here
     var posts:[Post] = []
     
+    let defaultImage = "https://imgur.com/gallery/GiW4t"
+    
     // url and raw data are variables as they can change as more posts are loaded
-    var urlPath:String = "https://www.reddit.com/r/pics/.json"
+    var urlPath:String = "https://reddit.com/r/pics/.json"
     var rawData = NSData()
     
     // reddit keeps the number of posts displayed at 25 posts/page.
@@ -23,8 +25,9 @@ class ListViewController: UITableViewController {
     // after is used to keep track of pages
     // (i.e. a page will have an after "pointer" pointing to the next page)
     var after = String()
-
-
+    
+    var a = Authentication.sharedInstance
+    
     // MARK: - TABLE FUNCTIONS
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -54,7 +57,12 @@ class ListViewController: UITableViewController {
             print("load more posts!")
             pageNumber = pageNumber + 1
             
-            urlPath = "https://www.reddit.com/r/pics/.json?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
+            if (!a.isAuthenticated) {
+                urlPath = "https://reddit.com/r/pics/.json?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
+            }
+            else{
+                urlPath = "https://oauth.reddit.com/r/pics/.json?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
+            }
             print(urlPath)
             getJSON()
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -69,8 +77,12 @@ class ListViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
 //        let temp = Post(title:"Ecks Dee", points:"42069", username:"bravoman", timestamp:"just now", image: #imageLiteral(resourceName: "tbh") )
 //        posts.append(temp)
-        
-        // Download the json file
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //print("viewdidappear")
+        posts.removeAll()
         getJSON()
     }
     
@@ -84,14 +96,21 @@ class ListViewController: UITableViewController {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let url: NSURL = NSURL(string: urlPath)!
-        let request: URLRequest = URLRequest(url: url as URL)
+        var request: URLRequest = URLRequest(url: url as URL)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request, completionHandler:{ (data, response, error) in
+        
+        // if user is authenticated, include the token in the HTTP request header
+        if (a.isAuthenticated) {
+            request.httpMethod = "GET"
+            request.setValue("Bearer " + a.token, forHTTPHeaderField: "Authorization")
+        }
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
             self.rawData = NSData(data:data!)
-            let results = NSString(data: self.rawData as Data, encoding: String.Encoding.utf8.rawValue)
+            print(self.rawData)
             self.parseJSON()
-        })
+        }
         task.resume()
     }
     
@@ -111,7 +130,7 @@ class ListViewController: UITableViewController {
         
         // Get the after pointer
         after = data!["after"] as! String
-        print(after)
+        //print(after)
         
         // "children" contains the first 25 posts of the subreddit. This property was parsed as
         // a NSArray, but since we need to access the contents, cast as [[String:Any]] instead
@@ -143,39 +162,38 @@ class ListViewController: UITableViewController {
                     image = UIImage(data: data!)!
                     let postObj = Post(title:title,points:points,username:username,timestamp:timestamp,image:image)
                     self.posts.append(postObj)
-                    self.tableView.beginUpdates()
-                    
-                    let indexPath:IndexPath = IndexPath(row:(self.posts.count - 1), section:0)
-                    
-                    self.tableView.insertRows(at: [indexPath], with: .left)
-                    
-                    self.tableView.endUpdates()
+                    self.tableView.reloadData()
                 }
             }
             
-            print(title)
-            print(points)
-            print(username)
-            print(imageURL)
-            print("")
+//            print(title)
+//            print(points)
+//            print(username)
+//            print(imageURL)
+//            print("")
         }
     }
     // converts a unix timestamp into a relative time format (i.e. 1 hour ago, 5 days ago etc.)
     func utsToRelativeTime(uts:String)->String {
         let dateOfPost = NSDate(timeIntervalSince1970: Double(uts)!)
         let currentDate = NSDate()
-        print(dateOfPost)
-        print(currentDate)
+        //print(dateOfPost)
+        //print(currentDate)
         return ""
     }
     // returns the url of the image
     func getImageURL(post:[String:Any])->String{
+        var imageURL = String()
+        
+        if (post["preview"] == nil) {
+            return defaultImage
+        }
         let preview = post["preview"] as! [String:Any]
         let images = preview["images"] as! [[String:Any]]
         let source = images[0]["source"] as! [String:Any]
-        let imageURL = source["url"]!
-        
-        return String(describing: imageURL)
+        imageURL = String(describing: source["url"]!)
+
+        return imageURL
     }
 
 
