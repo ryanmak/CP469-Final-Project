@@ -42,19 +42,19 @@ class ListViewController: UITableViewController {
             switch sender.selectedSegmentIndex {
                 // sort by Hot
                 case 0:
-                    print("first segement clicked")
+                    //print("first segement clicked")
                     urlPath = REDDIT_SORTS[0]
                 // sort by Top
                 case 1:
-                    print("second segment clicked")
+                    //print("second segment clicked")
                     urlPath = REDDIT_SORTS[1]
                 // sort by New
                 case 2:
-                    print("third segmnet clicked")
+                    //print("third segmnet clicked")
                     urlPath = REDDIT_SORTS[2]
                 // sort by Rising
                 case 3:
-                    print("fourth segment clicked")
+                    //print("fourth segment clicked")
                     urlPath = REDDIT_SORTS[3]
                 default:
                     break;
@@ -65,19 +65,19 @@ class ListViewController: UITableViewController {
             switch sender.selectedSegmentIndex {
                 // sort by Hot
                 case 0:
-                    print("first segement clicked")
+                    //print("first segement clicked")
                     urlPath = OAUTH_REDDIT_SORTS[0]
                 // sort by Top
                 case 1:
-                    print("second segment clicked")
+                    //print("second segment clicked")
                     urlPath = OAUTH_REDDIT_SORTS[1]
                 // sort by New
                 case 2:
-                    print("third segmnet clicked")
+                    //print("third segmnet clicked")
                     urlPath = OAUTH_REDDIT_SORTS[2]
                 // sort by Rising
                 case 3:
-                    print("fourth segment clicked")
+                    //print("fourth segment clicked")
                     urlPath = OAUTH_REDDIT_SORTS[3]
                 default:
                     break;
@@ -110,6 +110,13 @@ class ListViewController: UITableViewController {
         // gets the appropriate post for the data source layout.
         let post = posts[indexPath.row]
         
+        cell.upBtn.backgroundColor = UIColor.white
+        cell.upBtn.setTitleColor(UIColor.blue, for: [])
+        cell.downBtn.backgroundColor = UIColor.white
+        cell.downBtn.setTitleColor(UIColor.blue, for: [])
+        cell.starBtn.backgroundColor = UIColor.white
+        cell.starBtn.setTitleColor(UIColor.blue, for: [])
+        
         // fill cell details
         cell.title.text = post.getTitle()
         cell.points.text = post.getPoints()
@@ -117,18 +124,28 @@ class ListViewController: UITableViewController {
         cell.timestamp.text = post.getTimestamp()
         cell.postImage.image = post.getImage()
         
+        // corresponds to the upvote, downvote and saved button
+        // a post cannot be simotaneously upvoted and downvoted, hence the `else if` after the upvote
+        print("post: \(indexPath.row)   up: \(post.getIsUpvoted())   down: \(post.getIsDownvoted())")
+        if (post.getIsUpvoted()){
+            cell.upBtn.backgroundColor = UIColor.orange
+            cell.upBtn.setTitleColor(UIColor.white, for: [])
+        }
+        else if (post.getIsDownvoted()){
+            cell.downBtn.backgroundColor = UIColor.purple
+            cell.downBtn.setTitleColor(UIColor.white, for: [])
+        }
+        if (post.getIsSaved()){
+            cell.starBtn.backgroundColor = UIColor.yellow
+            cell.starBtn.setTitleColor(UIColor.gray, for: [])
+        }
+        
         // if user has reached bottom, load more posts
         if (indexPath.row == (NUM_OF_POSTS * pageNumber) - 1) {
-            print("load more posts!")
+            //print("load more posts!")
             pageNumber = pageNumber + 1
-            
-            if (!a.isAuthenticated) {
-                urlPath = urlPath + "?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
-            }
-            else{
-                urlPath = urlPath + "?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
-            }
-            print(urlPath)
+            urlPath = urlPath + "?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
+            //print(urlPath)
             getJSON()
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
@@ -146,9 +163,9 @@ class ListViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("viewdidappear")
-        print(a.isAuthenticated)
-        print("url path " + urlPath)
+        //print("viewdidappear")
+        //print(a.isAuthenticated)
+        //print("url path " + urlPath)
         
         if (a.isAuthenticated) {
             urlPath = OAUTH_REDDIT_SORTS[0]
@@ -180,7 +197,7 @@ class ListViewController: UITableViewController {
         
         let task = session.dataTask(with: request) { (data, response, error) in
             self.rawData = NSData(data:data!)
-            print(self.rawData)
+            //print(self.rawData)
             self.parseJSON()
         }
         task.resume()
@@ -229,6 +246,10 @@ class ListViewController: UITableViewController {
                     downvoted = true
                 }
             }
+            else {
+                upvoted = false
+                downvoted = false
+            }
             
             // if user had previously starred/saved a post in the past, have it show in the cell
             let saved = p["saved"]
@@ -253,6 +274,7 @@ class ListViewController: UITableViewController {
             
             let data = try? Data(contentsOf: url!)
             image = UIImage(data: data!)!
+            print (title,points,username,timestamp,image,upvoted,downvoted,starred)
             let postObj = Post(title:title, points:points, username:username, timestamp:timestamp, image:image, up:upvoted, down:downvoted, saved:starred)
             self.posts.append(postObj)
         }
