@@ -18,8 +18,8 @@
 		B11A01DB20744CF100513EAA /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01DA20744CF100513EAA /* Post.swift */; };
 		B1E8F0DE20780840000F6D56 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8F0DD20780840000F6D56 /* Authentication.swift */; };
 		B1E8F0E020780E5F000F6D56 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */; };
-		B1E8F0E220782B9F000F6D56 /* OffsetIndexableS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8F0E120782B9F000F6D56 /* OffsetIndexableS.swift */; };
-		B1E8F0E420782BFA000F6D56 /* OffsetIndexableC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8F0E320782BFA000F6D56 /* OffsetIndexableC.swift */; };
+		D67D87562078A73100D0779A /* OffsetIndexableS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67D87542078A73100D0779A /* OffsetIndexableS.swift */; };
+		D67D87572078A73100D0779A /* OffsetIndexableC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67D87552078A73100D0779A /* OffsetIndexableC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +57,8 @@
 		B11A01DA20744CF100513EAA /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		B1E8F0DD20780840000F6D56 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		B1E8F0E120782B9F000F6D56 /* OffsetIndexableS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OffsetIndexableS.swift; path = "../../../Downloads/OffsetIndexableCollection-String-Int-Indexable--master/OffsetIndexableCollection/OffsetIndexableS.swift"; sourceTree = "<group>"; };
-		B1E8F0E320782BFA000F6D56 /* OffsetIndexableC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OffsetIndexableC.swift; path = "../../../Downloads/OffsetIndexableCollection-String-Int-Indexable--master/OffsetIndexableCollection/OffsetIndexableC.swift"; sourceTree = "<group>"; };
+		D67D87542078A73100D0779A /* OffsetIndexableS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OffsetIndexableS.swift; path = "../../../Downloads/OffsetIndexableCollection-String-Int-Indexable--master/OffsetIndexableCollection/OffsetIndexableS.swift"; sourceTree = "<group>"; };
+		D67D87552078A73100D0779A /* OffsetIndexableC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OffsetIndexableC.swift; path = "../../../Downloads/OffsetIndexableCollection-String-Int-Indexable--master/OffsetIndexableCollection/OffsetIndexableC.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +115,8 @@
 				B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */,
 				B11A01D520743C0200513EAA /* PostCellView.swift */,
 				B11A01DA20744CF100513EAA /* Post.swift */,
-				B1E8F0E120782B9F000F6D56 /* OffsetIndexableS.swift */,
-				B1E8F0E320782BFA000F6D56 /* OffsetIndexableC.swift */,
+				D67D87552078A73100D0779A /* OffsetIndexableC.swift */,
+				D67D87542078A73100D0779A /* OffsetIndexableS.swift */,
 				B11A01AB207433F300513EAA /* Main.storyboard */,
 				B11A01AE207433F300513EAA /* Assets.xcassets */,
 				B11A01B0207433F300513EAA /* LaunchScreen.storyboard */,
@@ -281,10 +281,10 @@
 				B11A01AA207433F300513EAA /* ListViewController.swift in Sources */,
 				B11A01A8207433F300513EAA /* AppDelegate.swift in Sources */,
 				B11A01D620743C0200513EAA /* PostCellView.swift in Sources */,
-				B1E8F0E220782B9F000F6D56 /* OffsetIndexableS.swift in Sources */,
+				D67D87562078A73100D0779A /* OffsetIndexableS.swift in Sources */,
 				B1E8F0DE20780840000F6D56 /* Authentication.swift in Sources */,
 				B11A01DB20744CF100513EAA /* Post.swift in Sources */,
-				B1E8F0E420782BFA000F6D56 /* OffsetIndexableC.swift in Sources */,
+				D67D87572078A73100D0779A /* OffsetIndexableC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
