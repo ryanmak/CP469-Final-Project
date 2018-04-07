@@ -151,8 +151,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="zSQ-1q-37o">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Refresh" id="klz-C4-zAk">
+                            <connections>
+                                <action selector="refresh:" destination="JpL-tL-bwH" id="KLF-kW-vPy"/>
+                            </connections>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="9r6-4e-2m6" userLabel="Hot, Top, New, Rising">
-                            <rect key="frame" x="66" y="7" width="243" height="30"/>
+                            <rect key="frame" x="84" y="7" width="207" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Hot"/>
@@ -186,7 +191,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1428.985507246377" y="111.68478260869566"/>
+            <point key="canvasLocation" x="1428" y="111.0944527736132"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="BGG-7r-LpP">

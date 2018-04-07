@@ -29,7 +29,28 @@ class ListViewController: UITableViewController {
     // (i.e. a page will have an after "pointer" pointing to the next page)
     var after = String()
     
+    // authentication singleton
     var a = Authentication.sharedInstance
+    
+    // Refresh button: delete all entries in the array and retrieve new data
+    @IBAction func refresh(_ sender: Any) {
+        posts.removeAll()
+        
+        let x = subredditSorts.selectedSegmentIndex
+        
+        if (a.isAuthenticated) {
+            urlPath = OAUTH_REDDIT_SORTS[x]
+        }
+        else {
+            urlPath = REDDIT_SORTS[x]
+        }
+
+        self.pageNumber = 1
+        self.getJSON()
+        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
+            
+        
+    }
     
     // MARK: - Reddit Sorts
     // this is for the Hot, Top, New and Rising component of the app
@@ -86,7 +107,7 @@ class ListViewController: UITableViewController {
         }
         // make sure that all previous entries are deleted by waiting;
         // get json based on requested sort
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.pageNumber = 1
             self.getJSON()
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
