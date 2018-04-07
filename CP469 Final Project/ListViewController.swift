@@ -31,6 +31,7 @@ class ListViewController: UITableViewController {
     
     var a = Authentication.sharedInstance
     
+    // MARK: - Reddit Sorts
     // this is for the Hot, Top, New and Rising component of the app
     // each segment has its own sort. request that sort and refresh the table when clicked
     @IBOutlet weak var subredditSorts: UISegmentedControl!
@@ -308,5 +309,8 @@ class ListViewController: UITableViewController {
 
         return imageURL
     }
+    
+    // MARK: - Misc functions
+    
 }
 
