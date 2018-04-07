@@ -131,6 +131,19 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="zSQ-1q-37o">
                         <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" id="9r6-4e-2m6" userLabel="Hot, Top, New, Rising">
+                            <rect key="frame" x="85.666666666666686" y="7" width="243" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Hot"/>
+                                <segment title="Top"/>
+                                <segment title="New"/>
+                                <segment title="Rising"/>
+                            </segments>
+                            <connections>
+                                <action selector="indexChangedWithSender:" destination="JpL-tL-bwH" eventType="valueChanged" id="1SY-y5-qwr"/>
+                            </connections>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Login" id="tbA-y4-LWb">
                             <connections>
                                 <action selector="login:" destination="JpL-tL-bwH" id="AAM-j2-PF0"/>
@@ -140,6 +153,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchDisplayController" destination="l0k-UE-zrq" id="Jgk-Wy-Tv9"/>
+                        <outlet property="subredditSorts" destination="9r6-4e-2m6" id="LiY-WI-b3J"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rir-DJ-i1N" userLabel="First Responder" sceneMemberID="firstResponder"/>

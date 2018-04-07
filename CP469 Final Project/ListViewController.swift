@@ -12,10 +12,13 @@ class ListViewController: UITableViewController {
     // currently loaded posts will be stored here
     var posts:[Post] = []
     
+    let REDDIT_SORTS:[String] = ["https://reddit.com/r/pics/hot/.json", "https://reddit.com/r/pics/top/.json", "https://reddit.com/r/pics/new/.json", "https://reddit.com/r/pics/rising/.json"]
+    let OAUTH_REDDIT_SORTS:[String] = ["https://oauth.reddit.com/r/pics/hot/.json", "https://oauth.reddit.com/r/pics/top/.json", "https://oauth.reddit.com/r/pics/new/.json", "https://oauth.reddit.com/r/pics/rising/.json"]
+    
     let defaultImage = "https://imgur.com/gallery/GiW4t"
     
     // url and raw data are variables as they can change as more posts are loaded
-    var urlPath:String = "https://reddit.com/r/pics/.json"
+    var urlPath:String = ""
     var rawData = NSData()
     
     // reddit keeps the number of posts displayed at 25 posts/page.
@@ -27,6 +30,62 @@ class ListViewController: UITableViewController {
     var after = String()
     
     var a = Authentication.sharedInstance
+    
+    // this is for the Hot, Top, New and Rising component of the app
+    // each segment has its own sort. request that sort and refresh the table when clicked
+    @IBOutlet weak var subredditSorts: UISegmentedControl!
+    @IBAction func indexChanged(sender : UISegmentedControl) {
+        // if user is not authenticaed, then use the regular url address
+        if (!a.isAuthenticated) {
+            switch sender.selectedSegmentIndex {
+                // sort by Hot
+                case 0:
+                    print("first segement clicked")
+                    urlPath = REDDIT_SORTS[0]
+                // sort by Top
+                case 1:
+                    print("second segment clicked")
+                    urlPath = REDDIT_SORTS[1]
+                // sort by New
+                case 2:
+                    print("third segmnet clicked")
+                    urlPath = REDDIT_SORTS[2]
+                // sort by Rising
+                case 3:
+                    print("fourth segment clicked")
+                    urlPath = REDDIT_SORTS[3]
+                default:
+                    break;
+            }
+        }
+            // user has been authenticated. use the oauth url address
+        else {
+            switch sender.selectedSegmentIndex {
+                // sort by Hot
+                case 0:
+                    print("first segement clicked")
+                    urlPath = OAUTH_REDDIT_SORTS[0]
+                // sort by Top
+                case 1:
+                    print("second segment clicked")
+                    urlPath = OAUTH_REDDIT_SORTS[1]
+                // sort by New
+                case 2:
+                    print("third segmnet clicked")
+                    urlPath = OAUTH_REDDIT_SORTS[2]
+                // sort by Rising
+                case 3:
+                    print("fourth segment clicked")
+                    urlPath = OAUTH_REDDIT_SORTS[3]
+                default:
+                    break;
+            }
+        }
+        // delete all previous entries and get json based on requested sort
+        posts.removeAll()
+        getJSON()
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
+    }
     
     // MARK: - TABLE FUNCTIONS
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,10 +117,10 @@ class ListViewController: UITableViewController {
             pageNumber = pageNumber + 1
             
             if (!a.isAuthenticated) {
-                urlPath = "https://reddit.com/r/pics/.json?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
+                urlPath = urlPath + "?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
             }
             else{
-                urlPath = "https://oauth.reddit.com/r/pics/.json?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
+                urlPath = urlPath + "?count=" + String(NUM_OF_POSTS * pageNumber) + "&after=" + after
             }
             print(urlPath)
             getJSON()
@@ -74,9 +133,9 @@ class ListViewController: UITableViewController {
     // MARK: - DEFAULT FUNCTIONS
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-//        let temp = Post(title:"Ecks Dee", points:"42069", username:"bravoman", timestamp:"just now", image: #imageLiteral(resourceName: "tbh") )
-//        posts.append(temp)
+
+        // initialize urlpath to the 'hot' sort
+        urlPath = REDDIT_SORTS[0]
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -156,12 +215,15 @@ class ListViewController: UITableViewController {
             // the image and load all contents to a Post Object
             let url = URL(string: imageURL)
             var image = UIImage()
+            
+            let data = try? Data(contentsOf: url!)
+            
+            image = UIImage(data: data!)!
+            let postObj = Post(title:title,points:points,username:username,timestamp:timestamp,image:image)
+            self.posts.append(postObj)
+            
             DispatchQueue.global().async {
-                let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {
-                    image = UIImage(data: data!)!
-                    let postObj = Post(title:title,points:points,username:username,timestamp:timestamp,image:image)
-                    self.posts.append(postObj)
                     self.tableView.reloadData()
                 }
             }
