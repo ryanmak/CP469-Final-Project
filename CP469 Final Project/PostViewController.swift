@@ -30,6 +30,18 @@ class PostViewController: UITableViewController {
     @IBAction func commentButton(_ sender: Any) {
         
         if (a.isAuthenticated) {
+            var comment = ""
+            let alert = UIAlertController(title: "Create Comment", message:"Enter Comment", preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                    textField.text = "Comment goes here"
+            }
+            alert.addAction(UIAlertAction(title:"OK", style: .default,handler: { [weak alert] (_) in
+                let textField = alert?.textFields![0]
+                comment = (textField?.text)!
+                print (comment)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
         }else{
             notLoggedInAlert()
         }
