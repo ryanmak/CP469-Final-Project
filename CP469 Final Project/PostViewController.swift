@@ -10,6 +10,7 @@ import UIKit
 
 class PostViewController: UIViewController {
 
+    var post: Post?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +22,12 @@ class PostViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    func initWithPost(post:Post){
+        self.post = post
+    }
+    
+    
     /*
     // MARK: - Navigation
 

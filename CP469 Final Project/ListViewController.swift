@@ -185,6 +185,8 @@ class ListViewController: UITableViewController {
 
         // initialize urlpath to the 'hot' sort
         urlPath = REDDIT_SORTS[0]
+        posts.removeAll()
+        getJSON()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -338,8 +340,8 @@ class ListViewController: UITableViewController {
         if segue.identifier == "ShowPost" {
             
             if let destinationNavCtrl = segue.destination as? PostViewController{
-                let indexPath = tableView.indexPath(for: sender as! TableViewCell)!;
-                targetCtrl.initWithArticle(article: articles[indexPath.row])
+                let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!;
+                destinationNavCtrl.initWithPost(post: posts[indexPath.row])
             }
         } // ShowDetail
     }

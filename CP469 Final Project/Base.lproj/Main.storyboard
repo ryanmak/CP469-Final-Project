@@ -195,10 +195,10 @@
             </objects>
             <point key="canvasLocation" x="1428" y="111.0944527736132"/>
         </scene>
-        <!--View Controller-->
+        <!--Post View Controller-->
         <scene sceneID="65r-im-5Yj">
             <objects>
-                <viewController id="hDF-aE-IJr" sceneMemberID="viewController">
+                <viewController id="hDF-aE-IJr" customClass="PostViewController" customModule="CP469_Final_Project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VdE-IN-URp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
