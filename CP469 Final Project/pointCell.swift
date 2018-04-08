@@ -9,6 +9,7 @@
 import UIKit
 
 class pointCell: UITableViewCell {
+    let a = Authentication.sharedInstance
 
     @IBOutlet weak var points: UILabel!
     @IBOutlet weak var comments: UILabel!
@@ -23,10 +24,31 @@ class pointCell: UITableViewCell {
         comments.sizeToFit()
     }
 
+    @IBAction func downDoot(_ sender: Any) {
+        if (a.isAuthenticated) {
+            upvote.setImage(UIImage(named:"up-arrow"), for: .normal)
+            downvote.setImage(UIImage(named:"down-arrow copy"), for: .normal)
+        }else{
+            notLoggedInAlert()
+        }
+    }
+    @IBAction func upDoot(_ sender: Any) {
+        if (a.isAuthenticated) {
+            upvote.setImage(UIImage(named:"up-arrow copy"), for: .normal)
+            downvote.setImage(UIImage(named:"down-arrow"), for: .normal)
+        }else{
+            notLoggedInAlert()
+        }
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    func notLoggedInAlert(){
+        let alert = UIAlertController(title: "Not Logged In", message: "In order to vote/save a post, you need to log in", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 
 }

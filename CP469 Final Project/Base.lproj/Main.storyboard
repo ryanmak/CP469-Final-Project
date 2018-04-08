@@ -206,7 +206,7 @@
             </objects>
             <point key="canvasLocation" x="1428" y="111.0944527736132"/>
         </scene>
-        <!--Post View Controller-->
+        <!--Title-->
         <scene sceneID="L9d-OS-eq6">
             <objects>
                 <tableViewController id="sZ4-Zr-AZD" customClass="PostViewController" customModule="CP469_Final_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -245,7 +245,7 @@
                                     <segue destination="TLD-GL-RRu" kind="show" identifier="Zoom" id="Zx6-vu-x04"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pointCell" id="GLe-Mg-xsQ" customClass="pointCell" customModule="CP469_Final_Project" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pointCell" id="GLe-Mg-xsQ" customClass="pointCell" customModule="CP469_Final_Project" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="279" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GLe-Mg-xsQ" id="kpi-oF-cQm">
@@ -253,7 +253,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fJn-MO-llW">
-                                            <rect key="frame" x="24" y="7" width="42" height="30.5"/>
+                                            <rect key="frame" x="24" y="6.5" width="42" height="30.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbl-aV-wwM">
                                                     <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
@@ -275,7 +275,7 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="XsS-Kb-HTW">
-                                            <rect key="frame" x="140.5" y="7" width="42" height="30.5"/>
+                                            <rect key="frame" x="140.5" y="6.5" width="42" height="30.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhp-jn-Hrk">
                                                     <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
@@ -300,7 +300,7 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oTA-dy-SMc">
-                                            <rect key="frame" x="82" y="7" width="42.5" height="30.5"/>
+                                            <rect key="frame" x="82" y="6.5" width="42.5" height="30.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nac-AE-TFI">
                                                     <rect key="frame" x="0.0" y="0.0" width="42.5" height="20.5"/>
@@ -321,29 +321,44 @@
                                                 <constraint firstAttribute="trailing" secondItem="nac-AE-TFI" secondAttribute="trailing" id="zuk-OZ-nAy"/>
                                             </constraints>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIa-39-H4N">
-                                            <rect key="frame" x="274" y="15" width="30" height="14"/>
-                                            <state key="normal" title="Up"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARn-xs-Tee">
+                                            <rect key="frame" x="317.5" y="5" width="33" height="33"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="33" id="hAY-2S-n6x"/>
+                                                <constraint firstAttribute="height" constant="33" id="s9i-lm-2Bw"/>
+                                            </constraints>
+                                            <state key="normal" image="down-arrow"/>
+                                            <connections>
+                                                <action selector="downDoot:" destination="GLe-Mg-xsQ" eventType="touchUpInside" id="Qcb-CJ-lMv"/>
+                                            </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARn-xs-Tee">
-                                            <rect key="frame" x="312" y="15" width="39" height="14"/>
-                                            <state key="normal" title="Down"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YIa-39-H4N">
+                                            <rect key="frame" x="276.5" y="5" width="33" height="33"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="33" id="8Gb-e3-cLa"/>
+                                                <constraint firstAttribute="width" constant="33" id="X4P-lX-ph7"/>
+                                            </constraints>
+                                            <state key="normal" image="up-arrow"/>
+                                            <connections>
+                                                <action selector="upDoot:" destination="GLe-Mg-xsQ" eventType="touchUpInside" id="2NW-Je-rFM"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="oTA-dy-SMc" firstAttribute="centerY" secondItem="kpi-oF-cQm" secondAttribute="centerY" id="5EN-UR-iLc"/>
-                                        <constraint firstItem="ARn-xs-Tee" firstAttribute="top" secondItem="kpi-oF-cQm" secondAttribute="top" constant="15" id="A6V-Oh-Gv7"/>
                                         <constraint firstItem="oTA-dy-SMc" firstAttribute="leading" secondItem="fJn-MO-llW" secondAttribute="trailing" constant="16" id="Ajo-ki-FIt"/>
-                                        <constraint firstItem="YIa-39-H4N" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kpi-oF-cQm" secondAttribute="leading" constant="20" symbolic="YES" id="ae6-N6-rIj"/>
+                                        <constraint firstItem="YIa-39-H4N" firstAttribute="leading" secondItem="XsS-Kb-HTW" secondAttribute="trailing" constant="94" id="Gim-wM-5sg"/>
+                                        <constraint firstItem="YIa-39-H4N" firstAttribute="top" secondItem="kpi-oF-cQm" secondAttribute="top" constant="5" id="Ifm-xg-VnC"/>
+                                        <constraint firstItem="ARn-xs-Tee" firstAttribute="top" secondItem="kpi-oF-cQm" secondAttribute="top" constant="5" id="MCO-UG-4kM"/>
+                                        <constraint firstItem="ARn-xs-Tee" firstAttribute="centerY" secondItem="kpi-oF-cQm" secondAttribute="centerY" id="PIb-7r-Jtz"/>
                                         <constraint firstItem="XsS-Kb-HTW" firstAttribute="leading" secondItem="oTA-dy-SMc" secondAttribute="trailing" constant="16" id="bkI-8g-xGb"/>
-                                        <constraint firstItem="YIa-39-H4N" firstAttribute="top" secondItem="kpi-oF-cQm" secondAttribute="topMargin" constant="4" id="dxE-hc-zBo"/>
-                                        <constraint firstAttribute="trailing" secondItem="ARn-xs-Tee" secondAttribute="trailing" constant="24" id="eAj-GN-6Yr"/>
-                                        <constraint firstItem="ARn-xs-Tee" firstAttribute="leading" secondItem="YIa-39-H4N" secondAttribute="trailing" constant="8" id="fMm-67-GlO"/>
-                                        <constraint firstAttribute="bottom" secondItem="ARn-xs-Tee" secondAttribute="bottom" constant="15" id="fdJ-0o-LzI"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="YIa-39-H4N" secondAttribute="bottom" constant="4" id="lGa-Bd-HEc"/>
+                                        <constraint firstAttribute="bottom" secondItem="ARn-xs-Tee" secondAttribute="bottom" constant="5.5" id="ebu-iH-071"/>
+                                        <constraint firstAttribute="bottom" secondItem="YIa-39-H4N" secondAttribute="bottom" constant="5.5" id="hSG-LP-dIc"/>
+                                        <constraint firstItem="ARn-xs-Tee" firstAttribute="leading" secondItem="YIa-39-H4N" secondAttribute="trailing" constant="8" id="sc0-8Z-Im4"/>
                                         <constraint firstItem="fJn-MO-llW" firstAttribute="centerY" secondItem="kpi-oF-cQm" secondAttribute="centerY" id="sry-r4-Gyl"/>
                                         <constraint firstItem="XsS-Kb-HTW" firstAttribute="centerY" secondItem="kpi-oF-cQm" secondAttribute="centerY" id="wcZ-8C-RSe"/>
                                         <constraint firstItem="fJn-MO-llW" firstAttribute="leading" secondItem="kpi-oF-cQm" secondAttribute="leading" constant="24" id="zT3-fb-gCO"/>
+                                        <constraint firstItem="YIa-39-H4N" firstAttribute="centerY" secondItem="kpi-oF-cQm" secondAttribute="centerY" id="zpq-Ak-wWD"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -411,6 +426,16 @@
                             <outlet property="delegate" destination="sZ4-Zr-AZD" id="Vg7-iq-d2r"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="kvc-BR-uRS">
+                        <barButtonItem key="rightBarButtonItem" title="Comment" id="aHX-Eo-dZ6">
+                            <connections>
+                                <action selector="commentButton:" destination="sZ4-Zr-AZD" id="UDC-yW-yni"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nav" destination="kvc-BR-uRS" id="bQB-pR-MYV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3cy-6R-hxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="TBH-uc-bgM"/>

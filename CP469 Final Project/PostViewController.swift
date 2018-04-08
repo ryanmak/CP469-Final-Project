@@ -10,6 +10,8 @@ import UIKit
 
 class PostViewController: UITableViewController {
     
+    @IBOutlet weak var nav: UINavigationItem!
+    
     var post: Post?
     let baseLink = "https://reddit.com"
     let authLink = "https://oauth.reddit.com"
@@ -24,11 +26,25 @@ class PostViewController: UITableViewController {
     // (i.e. a page will have an after "pointer" pointing to the next page)
     var after = String()
     
+    
+    @IBAction func commentButton(_ sender: Any) {
+        
+        if (a.isAuthenticated) {
+        }else{
+            notLoggedInAlert()
+        }
+    }
+    func notLoggedInAlert(){
+        let alert = UIAlertController(title: "Not Logged In", message: "In order to comments a post, you need to log in", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
-
+        nav.title = post?.getTitle()
         if (a.isAuthenticated) {
             urlPath = authLink + (post?.getLink())! + ".json"
         }

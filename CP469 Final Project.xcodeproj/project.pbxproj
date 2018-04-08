@@ -129,14 +129,14 @@
 		B11A01A6207433F300513EAA /* CP469 Final Project */ = {
 			isa = PBXGroup;
 			children = (
-				3F6A9B542079DD7D00060C2C /* CommentCell.swift */,
 				B11A01A7207433F300513EAA /* AppDelegate.swift */,
 				B1E8F0DD20780840000F6D56 /* Authentication.swift */,
-				3F6A9B562079F86100060C2C /* imageCell.swift */,
 				B11A01A9207433F300513EAA /* ListViewController.swift */,
-				3F6A9B502079AC1900060C2C /* PostViewController.swift */,
-				3F6A9B5A207A09C100060C2C /* pointCell.swift */,
 				B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */,
+				3F6A9B502079AC1900060C2C /* PostViewController.swift */,
+				3F6A9B562079F86100060C2C /* imageCell.swift */,
+				3F6A9B5A207A09C100060C2C /* pointCell.swift */,
+				3F6A9B542079DD7D00060C2C /* CommentCell.swift */,
 				3F6A9B5E207A373E00060C2C /* down-arrow.png */,
 				3F6A9B60207A374800060C2C /* up-arrow.png */,
 				3F6A9B63207A3B9D00060C2C /* down-arrow copy.png */,
