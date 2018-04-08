@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -141,6 +142,7 @@
                                     <outlet property="title" destination="9dW-ch-dCh" id="5bF-Ny-hzf"/>
                                     <outlet property="upBtn" destination="I40-NE-Suu" id="LMI-xM-fgg"/>
                                     <outlet property="username" destination="EHy-Z7-xia" id="NUR-1l-8lx"/>
+                                    <segue destination="hDF-aE-IJr" kind="show" identifier="ShowPost" id="5Wd-Hb-cNs"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -193,6 +195,24 @@
             </objects>
             <point key="canvasLocation" x="1428" y="111.0944527736132"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="65r-im-5Yj">
+            <objects>
+                <viewController id="hDF-aE-IJr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VdE-IN-URp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="2oO-EY-g7C"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0kh-PZ-diy">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="62R-yM-fiJ"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4e1-G7-4S2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2537" y="600"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="BGG-7r-LpP">
             <objects>
@@ -202,11 +222,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6oP-gi-IRZ">
-                                <rect key="frame" x="-20" y="3.5" width="415" height="724"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="415" id="kUS-Jp-jhN"/>
-                                    <constraint firstAttribute="height" constant="724" id="unm-Xz-rQG"/>
+                                    <constraint firstAttribute="height" constant="603" id="DsW-C0-FA8"/>
                                 </constraints>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -216,8 +235,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6oP-gi-IRZ" firstAttribute="centerY" secondItem="VaY-aH-MFR" secondAttribute="centerY" id="BbK-UH-35i"/>
-                            <constraint firstItem="6oP-gi-IRZ" firstAttribute="centerX" secondItem="VaY-aH-MFR" secondAttribute="centerX" id="l0X-BB-qFk"/>
+                            <constraint firstItem="6oP-gi-IRZ" firstAttribute="leading" secondItem="VaY-aH-MFR" secondAttribute="leading" id="DfD-2L-0Or"/>
+                            <constraint firstItem="6oP-gi-IRZ" firstAttribute="trailing" secondItem="VaY-aH-MFR" secondAttribute="trailing" id="FbA-MU-00j"/>
+                            <constraint firstItem="6oP-gi-IRZ" firstAttribute="bottom" secondItem="VaY-aH-MFR" secondAttribute="bottom" id="LyL-Bq-I6e"/>
+                            <constraint firstItem="6oP-gi-IRZ" firstAttribute="top" secondItem="ya4-E9-QMq" secondAttribute="topMargin" id="Wc0-tK-n98"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VaY-aH-MFR"/>
                     </view>
@@ -228,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b7O-jo-kH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2174" y="112"/>
+            <point key="canvasLocation" x="2537" y="-189"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WuC-7J-XNA">

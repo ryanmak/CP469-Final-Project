@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F6A9B512079AC1900060C2C /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A9B502079AC1900060C2C /* PostViewController.swift */; };
 		B11A01A8207433F300513EAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01A7207433F300513EAA /* AppDelegate.swift */; };
 		B11A01AA207433F300513EAA /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01A9207433F300513EAA /* ListViewController.swift */; };
 		B11A01AD207433F300513EAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B11A01AB207433F300513EAA /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F6A9B502079AC1900060C2C /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		B11A01A4207433F300513EAA /* CP469 Final Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CP469 Final Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B11A01A7207433F300513EAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B11A01A9207433F300513EAA /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				B11A01A7207433F300513EAA /* AppDelegate.swift */,
 				B1E8F0DD20780840000F6D56 /* Authentication.swift */,
 				B11A01A9207433F300513EAA /* ListViewController.swift */,
+				3F6A9B502079AC1900060C2C /* PostViewController.swift */,
 				B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */,
 				B11A01D520743C0200513EAA /* PostCellView.swift */,
 				B11A01DA20744CF100513EAA /* Post.swift */,
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F6A9B512079AC1900060C2C /* PostViewController.swift in Sources */,
 				B1E8F0E020780E5F000F6D56 /* LoginViewController.swift in Sources */,
 				B11AE190207939C300D96559 /* OffsetIndexableC.swift in Sources */,
 				B11A01AA207433F300513EAA /* ListViewController.swift in Sources */,

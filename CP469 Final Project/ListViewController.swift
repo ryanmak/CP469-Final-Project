@@ -58,8 +58,11 @@ class ListViewController: UITableViewController {
     @IBOutlet weak var subredditSorts: UISegmentedControl!
     @IBAction func indexChanged(sender : UISegmentedControl) {
         // if user changed sort, delete all posts in array
-        posts.removeAll()
         // if user is not authenticaed, then use the regular url address
+        
+        self.posts.removeAll()
+        self.tableView.reloadData()
+        
         if (!a.isAuthenticated) {
             switch sender.selectedSegmentIndex {
                 // sort by Hot
@@ -107,11 +110,8 @@ class ListViewController: UITableViewController {
         }
         // make sure that all previous entries are deleted by waiting;
         // get json based on requested sort
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.pageNumber = 1
             self.getJSON()
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
-        }
     }
     
     // MARK: - TABLE FUNCTIONS
@@ -124,44 +124,48 @@ class ListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "PostCellView"
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PostCellView  else {
-            fatalError("The dequeued cell is not an instance of PostCellView.")
+
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? PostCellView
+        if (cell == nil) {
+            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: cellIdentifier) as? PostCellView
         }
         
+        print(posts.endIndex)
+        print(indexPath.row);
         // gets the appropriate post for the data source layout.
-        let post = posts[indexPath.row]
         
-        cell.upBtn.backgroundColor = UIColor.white
-        cell.upBtn.setTitleColor(UIColor.blue, for: [])
-        cell.downBtn.backgroundColor = UIColor.white
-        cell.downBtn.setTitleColor(UIColor.blue, for: [])
-        cell.starBtn.backgroundColor = UIColor.white
-        cell.starBtn.setTitleColor(UIColor.blue, for: [])
+        cell?.upBtn.backgroundColor = UIColor.white
+        cell?.upBtn.setTitleColor(UIColor.blue, for: [])
+        cell?.downBtn.backgroundColor = UIColor.white
+        cell?.downBtn.setTitleColor(UIColor.blue, for: [])
+        cell?.starBtn.backgroundColor = UIColor.white
+        cell?.starBtn.setTitleColor(UIColor.blue, for: [])
         
-        // fill cell details
-        cell.title.text = post.getTitle()
-        cell.points.text = post.getPoints()
-        cell.username.text = post.getUsername()
-        cell.timestamp.text = post.getTimestamp()
-        cell.postImage.image = post.getImage()
+        if let post = posts[indexPath.row] as Post?{
+            // fill cell details
+            cell?.title.text = post.getTitle()
+            cell?.points.text = post.getPoints()
+            cell?.username.text = post.getUsername()
+            cell?.timestamp.text = post.getTimestamp()
+            cell?.postImage.image = post.getImage()
         
         // corresponds to the upvote, downvote and saved button
         // a post cannot be simotaneously upvoted and downvoted, hence the `else if` after the upvote
-        print("post: \(indexPath.row)   up: \(post.getIsUpvoted())   down: \(post.getIsDownvoted())")
-        if (post.getIsUpvoted()){
-            cell.upBtn.backgroundColor = UIColor.orange
-            cell.upBtn.setTitleColor(UIColor.white, for: [])
-        }
-        else if (post.getIsDownvoted()){
-            cell.downBtn.backgroundColor = UIColor.purple
-            cell.downBtn.setTitleColor(UIColor.white, for: [])
-        }
-        if (post.getIsSaved()){
-            cell.starBtn.backgroundColor = UIColor.yellow
-            cell.starBtn.setTitleColor(UIColor.gray, for: [])
-        }
+            print("post: \(indexPath.row)   up: \(post.getIsUpvoted())   down: \(post.getIsDownvoted())")
+            if (post.getIsUpvoted()){
+                cell?.upBtn.backgroundColor = UIColor.orange
+                cell?.upBtn.setTitleColor(UIColor.white, for: [])
+            }
+            else if (post.getIsDownvoted()){
+                cell?.downBtn.backgroundColor = UIColor.purple
+                cell?.downBtn.setTitleColor(UIColor.white, for: [])
+            }
+            if (post.getIsSaved()){
+                cell?.starBtn.backgroundColor = UIColor.yellow
+                cell?.starBtn.setTitleColor(UIColor.gray, for: [])
+            }
         
+        }
         // if user has reached bottom, load more posts
         if (indexPath.row == (NUM_OF_POSTS * pageNumber) - 1) {
             //print("load more posts!")
@@ -172,7 +176,7 @@ class ListViewController: UITableViewController {
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
         
-        return cell
+        return cell!
     }
     
     // MARK: - DEFAULT FUNCTIONS
@@ -189,12 +193,7 @@ class ListViewController: UITableViewController {
         //print(a.isAuthenticated)
         //print("url path " + urlPath)
         
-        if (a.isAuthenticated) {
-            urlPath = OAUTH_REDDIT_SORTS[0]
-        }
         
-        posts.removeAll()
-        getJSON()
     }
     
     override func didReceiveMemoryWarning() {
@@ -220,7 +219,9 @@ class ListViewController: UITableViewController {
         let task = session.dataTask(with: request) { (data, response, error) in
             self.rawData = NSData(data:data!)
             //print(self.rawData)
-            self.parseJSON()
+            DispatchQueue.main.async {
+                self.parseJSON()
+            }
         }
         task.resume()
     }
@@ -296,15 +297,16 @@ class ListViewController: UITableViewController {
             
             let data = try? Data(contentsOf: url!)
             image = UIImage(data: data!)!
-            print (title,points,username,timestamp,image,upvoted,downvoted,starred)
+            //print (title,points,username,timestamp,image,upvoted,downvoted,starred)
             let postObj = Post(title:title, points:points, username:username, timestamp:timestamp, image:image, up:upvoted, down:downvoted, saved:starred)
             self.posts.append(postObj)
         }
-        DispatchQueue.global().async {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        DispatchQueue.main.async{
+            self.tableView.reloadData()
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
+       
     }
     // converts a unix timestamp into a relative time format (i.e. 1 hour ago, 5 days ago etc.)
     func utsToRelativeTime(uts:String)->String {
@@ -329,6 +331,17 @@ class ListViewController: UITableViewController {
         imageURL = String(describing: source["url"]!)
 
         return imageURL
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "ShowPost" {
+            
+            if let destinationNavCtrl = segue.destination as? PostViewController{
+                let indexPath = tableView.indexPath(for: sender as! TableViewCell)!;
+                targetCtrl.initWithArticle(article: articles[indexPath.row])
+            }
+        } // ShowDetail
     }
     
     // MARK: - Misc functions

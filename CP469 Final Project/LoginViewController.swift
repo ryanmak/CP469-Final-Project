@@ -17,6 +17,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print(a.url)
         
         // open a webview so that the user can allow this app to access their account
@@ -28,6 +29,7 @@ class LoginViewController: UIViewController, WKUIDelegate, WKNavigationDelegate 
     
     // function runs when webpage has fully loaded
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         // print("loaded aaaaaaaaa")
         let currentURL = String(describing: webView.url!)
         print(currentURL)
