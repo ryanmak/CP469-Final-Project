@@ -250,6 +250,7 @@ class ListViewController: UITableViewController {
         // convert individiaul posts to the Post object
         for i in 0...postData.count-1 {
             let p = postData[i]["data"] as! [String:Any]
+            let id = String(describing:p["id"]!)
             let title = String(describing:p["title"]!)
             let username = String(describing:p["author"]!)
             let points = String(describing:p["score"]!)
@@ -299,7 +300,7 @@ class ListViewController: UITableViewController {
             image = UIImage(data: data!)!
             //print (title,points,username,numCom,link,image,upvoted,downvoted,starred)
             //print(Int(numCom)!)
-            let postObj = Post(title:title, points:points, username:username, timestamp:timestamp, comment:Int(numCom)!, link:link, image:image, up:upvoted, down:downvoted, saved:starred)
+            let postObj = Post(id: id, title:title, points:points, username:username, timestamp:timestamp, comment:Int(numCom)!, link:link, image:image, up:upvoted, down:downvoted, saved:starred)
             self.posts.append(postObj)
         }
         DispatchQueue.main.async{
@@ -311,8 +312,8 @@ class ListViewController: UITableViewController {
     }
     // converts a unix timestamp into a relative time format (i.e. 1 hour ago, 5 days ago etc.)
     func utsToRelativeTime(uts:String)->String {
-        let dateOfPost = NSDate(timeIntervalSince1970: Double(uts)!)
-        let currentDate = NSDate()
+        //let dateOfPost = NSDate(timeIntervalSince1970: Double(uts)!)
+        //let currentDate = NSDate()
         //print(dateOfPost)
         //print(currentDate)
         return ""

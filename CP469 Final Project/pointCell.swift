@@ -17,6 +17,8 @@ class pointCell: UITableViewCell {
     @IBOutlet weak var upvote: UIButton!
     @IBOutlet weak var downvote: UIButton!
     
+    var id:String?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,17 +28,62 @@ class pointCell: UITableViewCell {
 
     @IBAction func downDoot(_ sender: Any) {
         if (a.isAuthenticated) {
+            let json: [String: Any] = ["id": id!,"dir": -1]
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+            let url = URL(string: "http://oauth.reddit.com/api/vote")
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
+            request.httpBody = jsonData
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print(responseJSON)
+                }
+            }
+            
+            task.resume()
+            
             upvote.setImage(UIImage(named:"up-arrow"), for: .normal)
             downvote.setImage(UIImage(named:"down-arrow copy"), for: .normal)
         }else{
+            print(id!)
             notLoggedInAlert()
         }
     }
     @IBAction func upDoot(_ sender: Any) {
         if (a.isAuthenticated) {
+            // prepare json data
+            let json: [String: Any] = ["id": id!,"dir": 1]
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+            let url = URL(string: "http://oauth.reddit.com/api/vote")
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
+            request.httpBody = jsonData
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print(responseJSON)
+                }
+            }
+            
+            task.resume()
+            
             upvote.setImage(UIImage(named:"up-arrow copy"), for: .normal)
             downvote.setImage(UIImage(named:"down-arrow"), for: .normal)
         }else{
+            print(id!)
             notLoggedInAlert()
         }
     }

@@ -9,6 +9,8 @@
 import UIKit
 
 class Post: NSObject {
+    private let pId:String
+
     private let pTitle:String
     private let pPoints:String
     private let pUsername:String
@@ -20,7 +22,8 @@ class Post: NSObject {
     private var isDownvoted:Bool
     private var isSaved:Bool
     
-    init(title:String, points:String, username:String, timestamp:String, comment:Int, link:String, image:UIImage, up:Bool, down:Bool, saved:Bool) {
+    init(id:String, title:String, points:String, username:String, timestamp:String, comment:Int, link:String, image:UIImage, up:Bool, down:Bool, saved:Bool) {
+        self.pId = id
         self.pTitle = title
         self.pPoints = points
         self.pUsername = username
@@ -32,7 +35,9 @@ class Post: NSObject {
         self.isDownvoted = down
         self.isSaved = saved
     }
-    
+    func getID()->String {
+        return pId
+    }
     func getTitle()->String {
         return pTitle
     }

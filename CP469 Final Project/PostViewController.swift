@@ -42,6 +42,28 @@ class PostViewController: UITableViewController {
             }))
             
             self.present(alert, animated: true, completion: nil)
+            
+            let json: [String: Any] = ["parent": baseLink + (post?.getLink())!,"text":comment]
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+            let url = URL(string: "http://oauth.reddit.com/api/comment")
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
+            request.httpBody = jsonData
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print(responseJSON)
+                }
+            }
+            
+            task.resume()
+            
         }else{
             notLoggedInAlert()
         }
@@ -102,6 +124,8 @@ class PostViewController: UITableViewController {
         }else if indexPath.row == 1{
             let cell = tableView.dequeueReusableCell(withIdentifier: "pointCell") as! pointCell
             cell.author.text = "u/"+(post?.getUsername())!
+            cell.id = post?.getID()
+            
             if let x = post?.getComments(){
                 cell.comments.text = String(describing: x)
             }
