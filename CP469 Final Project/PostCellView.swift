@@ -19,6 +19,7 @@ class PostCellView: UITableViewCell {
     
     @IBOutlet weak var upBtn: UIButton!
     @IBAction func upvote(_ sender: Any) {
+        
         if (a.isAuthenticated) {
             if upBtn.backgroundColor == UIColor.white {
                 upBtn.backgroundColor = UIColor.orange
@@ -72,6 +73,7 @@ class PostCellView: UITableViewCell {
     @IBAction func comment(_ sender: Any) {
     }
     
+    func addChildViewController(_ childController: UIViewController){}
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -139,7 +139,7 @@ class ListViewController: UITableViewController {
         
         if let post = posts[indexPath.row] as Post?{
             // fill cell details
-            cell?.downBtn.setImage(UIImage(named:"down-arrow copy"), for: .normal)
+            //cell?.downBtn.setImage(UIImage(named:"down-arrow copy"), for: .normal)
             cell?.title.text = post.getTitle()
             cell?.points.text = post.getPoints()
             cell?.username.text = post.getUsername()

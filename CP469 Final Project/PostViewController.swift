@@ -135,7 +135,7 @@ class PostViewController: UITableViewController {
         
         let postData = data!["children"] as! [[String:Any]]
         
-        print (postData.count)
+        //print (postData.count)
         
         for i in 0...postData.count-1 {
             
@@ -146,7 +146,7 @@ class PostViewController: UITableViewController {
                 let score = String(describing:p["score"]!)
                 let body = String(describing:p["body"]!)
                 
-                print (user + score + body)
+                //print (user + score + body)
                 let comObj = Comment(user: user,score: score,text: body)
                 self.comments.append(comObj)
             }
