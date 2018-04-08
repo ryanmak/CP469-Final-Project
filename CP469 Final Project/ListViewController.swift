@@ -212,6 +212,7 @@ class ListViewController: UITableViewController {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
+        print(urlPath)
         // if user is authenticated, include the token in the HTTP request header
         if (a.isAuthenticated) {
             request.httpMethod = "GET"
@@ -238,14 +239,14 @@ class ListViewController: UITableViewController {
             print("Error Parsing JSON")
             print(error)
         }
-
+        //print(json)
         // Get the sub-json block "data". This block contains contains "children", which we need
         let data = json!["data"] as! [String:Any]?
         
         // Get the after pointer
         after = data!["after"] as! String
         //print(after)
-        
+
         // "children" contains the first 25 posts of the subreddit. This property was parsed as
         // a NSArray, but since we need to access the contents, cast as [[String:Any]] instead
         let postData = data!["children"] as! [[String:Any]]
@@ -254,9 +255,10 @@ class ListViewController: UITableViewController {
         for i in 0...postData.count-1 {
             let p = postData[i]["data"] as! [String:Any]
             let title = String(describing:p["title"]!)
-            let points = String(describing:p["score"]!)
             let username = String(describing:p["author"]!)
-            
+            let points = String(describing:p["score"]!)
+            let link = String(describing:p["permalink"]!)
+            let numCom = String(describing:p["num_comments"]!)
             // if user had previously upvoted a post in the past, have it show in the cell
             var upvoted = false
             var downvoted = false
@@ -299,15 +301,16 @@ class ListViewController: UITableViewController {
             
             let data = try? Data(contentsOf: url!)
             image = UIImage(data: data!)!
-            //print (title,points,username,timestamp,image,upvoted,downvoted,starred)
-            let postObj = Post(title:title, points:points, username:username, timestamp:timestamp, image:image, up:upvoted, down:downvoted, saved:starred)
+            //print (title,points,username,numCom,link,image,upvoted,downvoted,starred)
+            //print(Int(numCom)!)
+            let postObj = Post(title:title, points:points, username:username, timestamp:timestamp, comment:Int(numCom)!, link:link, image:image, up:upvoted, down:downvoted, saved:starred)
             self.posts.append(postObj)
         }
         DispatchQueue.main.async{
             self.tableView.reloadData()
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
        
     }
     // converts a unix timestamp into a relative time format (i.e. 1 hour ago, 5 days ago etc.)
@@ -336,12 +339,10 @@ class ListViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "ShowPost" {
-            
             if let destinationNavCtrl = segue.destination as? PostViewController{
                 let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!;
-                destinationNavCtrl.initWithPost(post: posts[indexPath.row])
+                destinationNavCtrl.initWithPost(selected: posts[indexPath.row])
             }
         } // ShowDetail
     }

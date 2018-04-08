@@ -13,16 +13,20 @@ class Post: NSObject {
     private let pPoints:String
     private let pUsername:String
     private let pTimestamp:String
+    private let pComment:Int
+    private let pLink:String
     private var pImage:UIImage
     private var isUpvoted:Bool
     private var isDownvoted:Bool
     private var isSaved:Bool
     
-    init(title:String, points:String, username:String, timestamp:String, image:UIImage, up:Bool, down:Bool, saved:Bool) {
+    init(title:String, points:String, username:String, timestamp:String, comment:Int, link:String, image:UIImage, up:Bool, down:Bool, saved:Bool) {
         self.pTitle = title
         self.pPoints = points
         self.pUsername = username
         self.pTimestamp = timestamp
+        self.pComment = comment
+        self.pLink = link
         self.pImage = image
         self.isUpvoted = up
         self.isDownvoted = down
@@ -40,6 +44,12 @@ class Post: NSObject {
     }
     func getTimestamp()->String {
         return pTimestamp
+    }
+    func getComments()->Int {
+        return pComment
+    }
+    func getLink()->String {
+        return pLink
     }
     func getImage()->UIImage {
         return pImage

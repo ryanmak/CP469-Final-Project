@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3F6A9B512079AC1900060C2C /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A9B502079AC1900060C2C /* PostViewController.swift */; };
+		3F6A9B552079DD7D00060C2C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A9B542079DD7D00060C2C /* CommentCell.swift */; };
+		3F6A9B572079F86100060C2C /* imageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A9B562079F86100060C2C /* imageCell.swift */; };
+		3F6A9B59207A05C700060C2C /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A9B58207A05C700060C2C /* FullImageViewController.swift */; };
+		3F6A9B5B207A09C100060C2C /* pointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A9B5A207A09C100060C2C /* pointCell.swift */; };
 		B11A01A8207433F300513EAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01A7207433F300513EAA /* AppDelegate.swift */; };
 		B11A01AA207433F300513EAA /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A01A9207433F300513EAA /* ListViewController.swift */; };
 		B11A01AD207433F300513EAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B11A01AB207433F300513EAA /* Main.storyboard */; };
@@ -42,6 +46,10 @@
 
 /* Begin PBXFileReference section */
 		3F6A9B502079AC1900060C2C /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		3F6A9B542079DD7D00060C2C /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		3F6A9B562079F86100060C2C /* imageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageCell.swift; sourceTree = "<group>"; };
+		3F6A9B58207A05C700060C2C /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
+		3F6A9B5A207A09C100060C2C /* pointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pointCell.swift; sourceTree = "<group>"; };
 		B11A01A4207433F300513EAA /* CP469 Final Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CP469 Final Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B11A01A7207433F300513EAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B11A01A9207433F300513EAA /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -111,15 +119,19 @@
 		B11A01A6207433F300513EAA /* CP469 Final Project */ = {
 			isa = PBXGroup;
 			children = (
+				3F6A9B542079DD7D00060C2C /* CommentCell.swift */,
 				B11A01A7207433F300513EAA /* AppDelegate.swift */,
 				B1E8F0DD20780840000F6D56 /* Authentication.swift */,
+				3F6A9B562079F86100060C2C /* imageCell.swift */,
 				B11A01A9207433F300513EAA /* ListViewController.swift */,
 				3F6A9B502079AC1900060C2C /* PostViewController.swift */,
+				3F6A9B5A207A09C100060C2C /* pointCell.swift */,
 				B1E8F0DF20780E5F000F6D56 /* LoginViewController.swift */,
 				B11A01AE207433F300513EAA /* Assets.xcassets */,
 				B11A01D520743C0200513EAA /* PostCellView.swift */,
 				B11A01DA20744CF100513EAA /* Post.swift */,
 				B11A01AB207433F300513EAA /* Main.storyboard */,
+				3F6A9B58207A05C700060C2C /* FullImageViewController.swift */,
 				B11A01B0207433F300513EAA /* LaunchScreen.storyboard */,
 				B11A01B3207433F300513EAA /* Info.plist */,
 				B11AE18F207939C300D96559 /* OffsetIndexableC.swift */,
@@ -282,9 +294,13 @@
 			files = (
 				3F6A9B512079AC1900060C2C /* PostViewController.swift in Sources */,
 				B1E8F0E020780E5F000F6D56 /* LoginViewController.swift in Sources */,
+				3F6A9B5B207A09C100060C2C /* pointCell.swift in Sources */,
 				B11AE190207939C300D96559 /* OffsetIndexableC.swift in Sources */,
 				B11A01AA207433F300513EAA /* ListViewController.swift in Sources */,
 				B11A01A8207433F300513EAA /* AppDelegate.swift in Sources */,
+				3F6A9B59207A05C700060C2C /* FullImageViewController.swift in Sources */,
+				3F6A9B572079F86100060C2C /* imageCell.swift in Sources */,
+				3F6A9B552079DD7D00060C2C /* CommentCell.swift in Sources */,
 				B11A01D620743C0200513EAA /* PostCellView.swift in Sources */,
 				B1E8F0DE20780840000F6D56 /* Authentication.swift in Sources */,
 				B11A01DB20744CF100513EAA /* Post.swift in Sources */,
