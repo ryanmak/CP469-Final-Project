@@ -10,9 +10,9 @@ import UIKit
 
 class CommentCell: UITableViewCell {
 
-    @IBOutlet weak var Author: UIStackView!
-    @IBOutlet weak var comment: UIStackView!
-    @IBOutlet weak var points: UIStackView!
+    @IBOutlet weak var Author: UILabel!
+    @IBOutlet weak var comment: UILabel!
+    @IBOutlet weak var points: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

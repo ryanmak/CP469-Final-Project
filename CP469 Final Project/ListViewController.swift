@@ -129,20 +129,17 @@ class ListViewController: UITableViewController {
         if (cell == nil) {
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: cellIdentifier) as? PostCellView
         }
-        
-        print(posts.endIndex)
-        print(indexPath.row);
         // gets the appropriate post for the data source layout.
         
-        cell?.upBtn.backgroundColor = UIColor.white
-        cell?.upBtn.setTitleColor(UIColor.blue, for: [])
-        cell?.downBtn.backgroundColor = UIColor.white
-        cell?.downBtn.setTitleColor(UIColor.blue, for: [])
+        
+        cell?.upBtn.tintColor = .white
+        cell?.downBtn.tintColor = .purple
         cell?.starBtn.backgroundColor = UIColor.white
         cell?.starBtn.setTitleColor(UIColor.blue, for: [])
         
         if let post = posts[indexPath.row] as Post?{
             // fill cell details
+            cell?.downBtn.setImage(UIImage(named:"down-arrow copy"), for: .normal)
             cell?.title.text = post.getTitle()
             cell?.points.text = post.getPoints()
             cell?.username.text = post.getUsername()
@@ -153,12 +150,11 @@ class ListViewController: UITableViewController {
         // a post cannot be simotaneously upvoted and downvoted, hence the `else if` after the upvote
             print("post: \(indexPath.row)   up: \(post.getIsUpvoted())   down: \(post.getIsDownvoted())")
             if (post.getIsUpvoted()){
-                cell?.upBtn.backgroundColor = UIColor.orange
-                cell?.upBtn.setTitleColor(UIColor.white, for: [])
+                cell?.upBtn.setImage(UIImage(named:"up-arrow copy"), for: .normal)
+                
             }
             else if (post.getIsDownvoted()){
-                cell?.downBtn.backgroundColor = UIColor.purple
-                cell?.downBtn.setTitleColor(UIColor.white, for: [])
+                cell?.downBtn.setImage(UIImage(named:"down-arrow copy"), for: .normal)
             }
             if (post.getIsSaved()){
                 cell?.starBtn.backgroundColor = UIColor.yellow
